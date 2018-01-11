@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxit.lrc.dao.RechargeDao">
+	<insert id="insertRecharge" parameterType="com.lxit.p2p.bean.Recharge">
+		insert into
+		recharge(userId,money,time,state,way,type,orderNum,creationTime)
+		values(#{userId},#{money},now(),'已到账',#{way},#{type},#{orderNum},#{creationTime})
+	</insert>
+</mapper>

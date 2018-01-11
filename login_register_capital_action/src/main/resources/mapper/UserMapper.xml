@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxit.lrc.dao.UserDao">
+	<resultMap type="com.lxit.p2p.bean.User" id="userMapper">
+		<id property="userId" column="id" />
+		<result property="nickName" column="nickName" />
+		<result property="phone" column="phone" />
+		<result property="pass" column="pass" />
+		<result property="referrer" column="referrer" />
+		<result property="registTime" column="registTime" />
+		<result property="head" column="head" />
+		<result property="idCard" column="idCard" />
+
+		<result property="email" column="email" />
+		<result property="realName" column="realName" />
+		<result property="lastTime" column="lastTime" />
+		<result property="isNew" column="isNew" />
+		<result property="reputation" column="reputation" />
+		<result property="payment" column="payment" />
+		<result property="money" column="money" />
+		<result property="creater" column="creater" />
+		<result property="creationTime" column="creationTime" />
+		<result property="modifier" column="modifier" />
+		<result property="modificationTime" column="modificationTime" />
+		<result property="postscript" column="postscript" />
+	</resultMap>
+	<sql id="query">
+		id,nickName,phone,pass,referrer,registTime,head,idCard,email,realName,lastTime,
+		isNew,reputation,payment,money,creater,creationTime,modifier,modificationTime,postscript
+	</sql>
+	<insert id="insertUser" parameterType="com.lxit.p2p.bean.User">
+		insert into
+		user(nickName,phone,pass,registTime,creationTime,isNew)
+		values(#{phone},#{phone},#{pass},now(),now(),0)
+	</insert>
+	
+	<select id="queryUserById" parameterType="int" resultMap="userMapper">
+		select <include refid="query"/> from user where id = #{id}
+	</select>
+
+	<select id="checkRegister" parameterType="java.lang.String"	resultType="long">
+		select count(1) from user where phone = #{phone}
+	</select>
+
+	<select id="loginPost" parameterType="com.lxit.p2p.bean.User" resultMap="userMapper">
+		select <include refid="query"/> from user where phone = #{phone} and pass = #{pass}
+	</select>
+	
+	<update id="updatePassWord" parameterType="com.lxit.p2p.bean.User">
+		update user set pass = #{pass},lastTime=now() where phone = #{phone}
+	</update>
+	
+	<update id="userchozhi" parameterType="com.lxit.p2p.bean.User" >
+		update user set money = money + #{money} where id = #{userId}
+	</update>
+</mapper>
