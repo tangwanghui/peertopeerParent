@@ -1,5 +1,8 @@
 package com.lxit.lrc.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.mybatis.spring.annotation.MapperScan;
@@ -20,5 +23,17 @@ public class RechargeServiceImpl implements RechargeService{
 	public boolean insertRecharge(Recharge recharge) {
 		return rechargeDao.insertRecharge(recharge);
 	}
+
+	@Override
+	public List<Recharge> selectChozhi(Map<String, Object> map) {
+		return rechargeDao.selectChozhi(map);
+	}
+
+	@Override
+	public long selectChozhiCount(Map<String, Object> map) {
+		return rechargeDao.selectChozhiCount(map);
+	}
+	
+	
 	
 }
